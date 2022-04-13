@@ -199,6 +199,28 @@ class FitBit extends utils.Adapter {
 			//throw new Error("FITBit: No Activity records available");
 		}
 	}
+	
+	async getHeartRate() {
+        const url = `${BASE2_URL}-/activities/heart/date/today/1min.json`;
+        const token = this.fitbit.tokens.access_token;
+
+        try {
+            const response = await axios.get(url,
+                {
+                    headers: { "Authorization": `Bearer ${token}` },
+                    timeout: axiosTimeout
+                });
+
+            if (response.status === 200) {
+                if (!this.setSleepStates(response.data)) {
+                    this.log.debug(`Sleep Records: No sleep records avaliable`);
+                }
+            }
+        }
+        catch (err) {
+            this.log.warn(`${err}`);
+        }
+        }
 
 	async getBodyRecords() {
 		//const url = "https://api.fitbit.com/1/user/-/body/log/fat/date/2022-02-01.json";
