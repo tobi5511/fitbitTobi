@@ -201,25 +201,25 @@ class FitBit extends utils.Adapter {
 	}
 	
 	async getHeartRate() {
-        const url = `${BASE2_URL}-/activities/heart/date/today/1min.json`;
-        const token = this.fitbit.tokens.access_token;
+        	const url = `${BASE2_URL}-/activities/heart/date/today/1min.json`;
+        	const token = this.fitbit.tokens.access_token;
 
-        try {
-            const response = await axios.get(url,
-                {
-                    headers: { "Authorization": `Bearer ${token}` },
-                    timeout: axiosTimeout
-                });
+        	try {
+            		const response = await axios.get(url,
+                		{
+                    			headers: { "Authorization": `Bearer ${token}` },
+                    			timeout: axiosTimeout
+                		});
 
-            if (response.status === 200) {
-                if (!this.setSleepStates(response.data)) {
-                    this.log.debug(`Sleep Records: No sleep records avaliable`);
-                }
-            }
-        }
-        catch (err) {
-            this.log.warn(`${err}`);
-        }
+            		if (response.status === 200) {
+                		if (!this.setSleepStates(response.data)) {
+                    			this.log.debug(`Sleep Records: No sleep records avaliable`);
+               			 }
+            		}
+        	}
+        	catch (err) {
+            		this.log.warn(`${err}`);
+        	}
         }
 
 	async getBodyRecords() {
